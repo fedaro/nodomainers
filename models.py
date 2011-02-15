@@ -14,7 +14,7 @@ class User(Base):
         #self.avatar = avatar
 
     def __repr__(self):
-        return '<User %r>' % (self.username)
+        return str(self.username)
 
 class Tweet(Base):
     __tablename__ = 'tweets'
@@ -30,5 +30,5 @@ class Tweet(Base):
         self.date = date  
 
     def __repr__(self):
-        return '<User %r> <Message: %r>' % (self.username, self.message)
+        return '<User %r> <Message: %r>' % (str(self.username), str(self.message))
 
