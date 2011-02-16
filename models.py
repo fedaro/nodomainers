@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
 from nodomainers.database import Base
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -16,6 +18,7 @@ class User(Base):
     def __repr__(self):
         return str(self.username)
 
+
 class Tweet(Base):
     __tablename__ = 'tweets'
     id = Column(Integer, primary_key=True)
@@ -24,13 +27,13 @@ class Tweet(Base):
     message = Column(String(140), unique=False)
     date = Column(DateTime, unique=False)
     tweet_id = Column(Integer, unique=True)
-   
+
     def __init__(self, user, message, date, tweet_id):
         self.user = user
         self.message = message
         self.date = date
-        self.tweet_id = tweet_id 
+        self.tweet_id = tweet_id
 
     def __repr__(self):
-        return '<User %r> <Message: %r>' % (str(self.user.username), str(self.message))
-
+        return '<User %r> <Message: %r>' % (str(self.user.username), \
+                                            str(self.message))

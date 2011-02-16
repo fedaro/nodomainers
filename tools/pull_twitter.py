@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
 import urllib2
-from urllib2 import URLError 
+from urllib2 import URLError
 import json
 from dateutil.parser import parse
 from nodomainers.database import db_session
 from nodomainers.models import User, Tweet
 from configs import *
+
 
 def get_twitter_req():
     last_id = None
@@ -12,13 +14,14 @@ def get_twitter_req():
         last_id = Tweet.query.order_by(Tweet.tweet_id.desc()).first().tweet_id
     except Exception, x:
         pass
- 
+
     if last_id == None:
         return '%s&%s=%s' % (TWITTER_URL, TWITTER_Q_VAR, TWITTER_QUERY)
-    else: 
+    else:
         return '%s&%s=%s&%s=%s' % (TWITTER_URL, TWITTER_OFFSET, last_id, \
                                    TWITTER_Q_VAR, TWITTER_QUERY)
-        
+
+
 def add_tweet(username, avatar, created_at, text, tweet_id):
     try:
         try:
@@ -33,7 +36,8 @@ def add_tweet(username, avatar, created_at, text, tweet_id):
             print "Unhandled exception adding tweet:" + str(x)
         db_session.commit()
     except Exception, x:
-        print "Unhandled Exception: " + str(x)     
+        print "Unhandled Exception: " + str(x)
+
 
 def parse_result(one_result):
     username = None
@@ -48,7 +52,7 @@ def parse_result(one_result):
     try:
         created_at = parse(created_at_str)
     except Exception, x:
-        print "Could not convert date to datetime: " + str(x) 
+        print "Could not convert date to datetime: " + str(x)
         return
     if u'profile_image_url' in one_result:
         avatar = one_result[u'profile_image_url']
@@ -56,7 +60,8 @@ def parse_result(one_result):
         tweet_id = one_result[u'id']
     if username and text and created_at and avatar and tweet_id:
         add_tweet(username, avatar, created_at, text, tweet_id)
-         
+
+
 def decode_json(file_resp):
     try:
         decoded = json.load(file_resp)
@@ -72,5 +77,3 @@ except URLError, x:
     print "URLError: " + str(x)
 except Exception, x:
     print "Unhandled error: " + str(x)
-
-

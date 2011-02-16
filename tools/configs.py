@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from ConfigParser import RawConfigParser
 import pdb
+
 
 try:
     configParser = RawConfigParser()
@@ -7,10 +9,9 @@ try:
     TWITTER_URL = configParser.get('twitter', 'url')
     TWITTER_Q_VAR = configParser.get('twitter', 'query_var')
     TWITTER_QUERY = configParser.get('twitter', 'query')
-    TWITTER_OFFSET = configParser.get('twitter', 'offset') 
+    TWITTER_OFFSET = configParser.get('twitter', 'offset')
 
 except Exception, x:
     print "Unhandled Exception: " + str(x)
     TWITTER_URL = None
     print "Could not find twitter URL, ignoring."
-
