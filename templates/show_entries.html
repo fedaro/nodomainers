@@ -1,10 +1,13 @@
 {% extends "layout.html" %}
+{% from '_helpers.html' import render_pagination %}
 {% block body %}
   <ul class=entries>
-  {% for entry in entries %}
+  {% for entry in pagination.items %}
     <li><h2>{{ entry.user }}</h2>{{ entry.message|safe }}
+    <a href={{ url_for('show_message', id=entry.id) }}>#</a>
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}
   </ul>
+{{ render_pagination(pagination, request.endpoint) }}
 {% endblock %}

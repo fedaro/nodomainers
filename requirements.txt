@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+ConfigParser
+dateutil
+urllib2
+json

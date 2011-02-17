@@ -3,7 +3,7 @@ import urllib2
 from urllib2 import URLError
 import json
 from dateutil.parser import parse
-from nodomainers.database import db_session
+from nodomainers.database import db
 from nodomainers.models import User, Tweet
 from configs import *
 
@@ -26,15 +26,15 @@ def add_tweet(username, avatar, created_at, text, tweet_id):
     try:
         try:
             u = User(username, avatar)
-            db_session.add(u)
+            db.session.add(u)
         except Exception, x:
             print "Unhandled exception adding user:" + str(x)
         try:
             t = Tweet(u, text, created_at, tweet_id)
-            db_session.add(t)
+            db.session.add(t)
         except Exception, x:
             print "Unhandled exception adding tweet:" + str(x)
-        db_session.commit()
+        db.session.commit()
     except Exception, x:
         print "Unhandled Exception: " + str(x)
 

@@ -2,10 +2,10 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
-from nodomainers.database import Base
+from nodomainers.database import db
 
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True)
@@ -19,7 +19,7 @@ class User(Base):
         return str(self.username)
 
 
-class Tweet(Base):
+class Tweet(db.Model):
     __tablename__ = 'tweets'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
