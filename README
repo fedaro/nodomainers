@@ -2,3 +2,13 @@ nodomainers
 
     The application to show your appreciation to domainers. 
     It's just a Twitter aggregator, my Flask first experience :). 
+
+Usage
+
+    Init DB: 
+            from nodoaminers.database import init_db
+            init_db()
+
+    Edit tools/tools.cfg to specify your search and run pull_twitter.py
+    periodically.
+
