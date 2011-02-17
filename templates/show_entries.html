@@ -3,10 +3,19 @@
 {% block body %}
   <ul class=entries>
   {% for entry in pagination.items %}
-    <li><h2>{{ entry.user }}</h2>{{ entry.message|safe }}
-    <a href={{ url_for('show_message', id=entry.id) }}>#</a>
-  {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
+    <li>
+        <h2>
+            <img src={{ entry.user.avatarurl }} alt={{entry.user}}/>
+            <a href=http://twitter.com/#!/{{ entry.user }}>
+                {{ entry.user }}
+            </a>
+        </h2>
+        {{ entry.message|safe }}
+        <a href={{ url_for('show_message', id=entry.id) }}>#</a>
+        <p class=meta>
+            {{ entry.date.strftime('%Y-%m-%d at %H:%M') }}
+        {% else %}
+           <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}
   </ul>
 {{ render_pagination(pagination, request.endpoint) }}
