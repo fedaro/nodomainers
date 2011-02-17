@@ -4,7 +4,7 @@ from nodomainers.models import User, Tweet
 from flask import render_template
 
 
-app.config['MSG_PER_PAGE'] = 30
+app.config['MSG_PER_PAGE'] = 5
 
 
 @app.route('/', defaults={'page': 1})

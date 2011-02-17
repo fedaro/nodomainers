@@ -4,9 +4,11 @@ from urllib2 import URLError
 import json
 from dateutil.parser import parse
 from nodomainers.database import db
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.exc import IntegrityError
 from nodomainers.models import User, Tweet
 from configs import *
-
+import pdb
 
 def get_twitter_req():
     last_id = None
@@ -27,14 +29,24 @@ def add_tweet(username, avatar, created_at, text, tweet_id):
         try:
             u = User(username, avatar)
             db.session.add(u)
+            db.session.commit()
+        except InvalidRequestError, x:
+            pass
+        except IntegrityError, x:
+            pass
         except Exception, x:
             print "Unhandled exception adding user:" + str(x)
+             
         try:
             t = Tweet(u, text, created_at, tweet_id)
             db.session.add(t)
+            db.session.commit()
+        except InvalidRequestError, x:
+            pass
+        except IntegrityError, x:
+            pass
         except Exception, x:
             print "Unhandled exception adding tweet:" + str(x)
-        db.session.commit()
     except Exception, x:
         print "Unhandled Exception: " + str(x)
 
